@@ -1,12 +1,21 @@
 //Поддерживаемые типы: D4, D6, D8, D10, D12, D16, D20.
 function randomDice(dice) {
-  if (isNaN(dice)) {
-    console.log('Переданное значение должно быть целым числом');
+  const dices = {
+    d4: 4,
+    d6: 6,
+    d8: 8,
+    d10: 10,
+    d12: 12,
+    d16: 16,
+    d20: 20,
+  };
+  if (dices[dice]) {
+    return Math.floor((Math.random() * dices[dice] + 1));
   }
-  if (dice < 4 || dice > 20) {
-    console.log('Значение должно быть не меньше 4 и не более 20');
+  else {
+    console.log('Неверное значение');
+    return;
   }
-  return Math.floor((Math.random() * dice + 1));
 }
 
-console.log(randomDice(6));
+console.log(randomDice('d6'));
