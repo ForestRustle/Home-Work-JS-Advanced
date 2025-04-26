@@ -1,12 +1,19 @@
 'use strict';
 
+const Roles = {
+  manager: 'manager',
+  user: 'user',
+}
+
 class Car {
   #make;
   #model;
   #run;
-  constructor(make, model, run) {
+  #role;
+  constructor(make, model, run, role) {
     this.#make = make;
     this.#model = model;
+    this.#role = role;
     this.setRun(run);
   }
 
@@ -15,6 +22,11 @@ class Car {
   }
 
   setRun(mileage) {
+    if (this.#role !== 'manager') {
+      console.log('Изменение пробега возможно после одобрения мэнеджера');
+      
+      return
+    }
     if (mileage < 0) {
       console.log('Пробег не может быть отрицательным');
       this.#run = 0;
@@ -30,7 +42,8 @@ class Car {
   }
 }
 
-const test = new Car('bmw', 'x6', 20000);
+const test = new Car('bmw', 'x6', 20000, 'manager');
+// const test = new Car('bmw', 'x6', 20000, 'user');
 console.log(test.info());
 test.setRun(21000);
 console.log(test.info());
