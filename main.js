@@ -1,49 +1,24 @@
-'use strict';
 
-const Roles = {
-  manager: 'manager',
-  user: 'user',
-}
-
-class Car {
-  #make;
-  #model;
-  #run;
-  #role;
-  constructor(make, model, run, role) {
-    this.#make = make;
-    this.#model = model;
-    this.#role = role;
-    this.setRun(run);
+//Поддерживаемые типы: D4, D6, D8, D10, D12, D16, D20.
+function randomDice(dice) {
+  const diceLower = dice.toLowerCase()
+  const dices = {
+    d4: 4,
+    d6: 6,
+    d8: 8,
+    d10: 10,
+    d12: 12,
+    d16: 16,
+    d20: 20,
+  };
+  if (dices[diceLower]) {
+    return Math.floor((Math.random() * dices[diceLower] + 1));
   }
-
-  get getRun() {
-    return this.#run;
-  }
-
-  setRun(mileage) {
-    if (this.#role !== 'manager') {
-      console.log('Изменение пробега возможно после одобрения мэнеджера');
-      
-      return
-    }
-    if (mileage < 0) {
-      console.log('Пробег не может быть отрицательным');
-      this.#run = 0;
-    } else if (this.#run !== undefined && mileage < this.#run) {
-      console.log('Пробег не может быть уменьшен');
-    } else {
-      this.#run = mileage;
-    }
-  }
-
-  info() {
-    console.log(`Марка: ${this.#make} модель: ${this.#model} пробег: ${this.#run}`);
+  else {
+    return `Ошибка: Неверный тип дайса. Поддерживаемые типы: ${Object.keys(dices).join(', ')}`;
   }
 }
 
-const test = new Car('bmw', 'x6', 20000, 'manager');
-// const test = new Car('bmw', 'x6', 20000, 'user');
-console.log(test.info());
-test.setRun(21000);
-console.log(test.info());
+console.log(randomDice('D6'));
+console.log(randomDice('d8'));
+console.log(randomDice('d'));
