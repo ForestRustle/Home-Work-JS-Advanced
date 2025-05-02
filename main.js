@@ -1,3 +1,4 @@
+
 'use strict';
 
 class Character {
@@ -53,3 +54,4 @@ orc.speak();
 orc.strike(character);
 elf.speak();
 elf.createSpell(character);
+
