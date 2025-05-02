@@ -1,24 +1,24 @@
 
-//Поддерживаемые типы: D4, D6, D8, D10, D12, D16, D20.
-function randomDice(dice) {
-  const diceLower = dice.toLowerCase()
-  const dices = {
-    d4: 4,
-    d6: 6,
-    d8: 8,
-    d10: 10,
-    d12: 12,
-    d16: 16,
-    d20: 20,
-  };
-  if (dices[diceLower]) {
-    return Math.floor((Math.random() * dices[diceLower] + 1));
-  }
-  else {
-    return `Ошибка: Неверный тип дайса. Поддерживаемые типы: ${Object.keys(dices).join(', ')}`;
-  }
+'use strict';
+function randomDate(min, max) {
+  const minDate = new Date(min);
+  const maxDate = new Date(max);
+  const randomTime = minDate.getTime() + Math.floor(Math.random() * (maxDate.getTime() - minDate.getTime()));
+
+  const date = new Date(randomTime);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+function validAge(birthday) {
+  const nowDate = new Date();
+  const userBirthday = new Date(birthday).getTime();
+  const userAge = Math.floor((nowDate - userBirthday) / (1000 * 60 * 60 * 24 * 365));
+  return userAge >= 14;
 }
 
-console.log(randomDice('D6'));
-console.log(randomDice('d8'));
-console.log(randomDice('d'));
+const result = randomDate('1990-01-01', '2025-01-01');
+
+console.log(validAge(result));
