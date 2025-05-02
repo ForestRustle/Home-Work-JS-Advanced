@@ -1,3 +1,4 @@
+
 'use strict';
 
 const new_year = document.querySelector('.new_year');
