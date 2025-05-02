@@ -1,24 +1,28 @@
 
 'use strict';
-function randomDate(min, max) {
-  const minDate = new Date(min);
-  const maxDate = new Date(max);
-  const randomTime = minDate.getTime() + Math.floor(Math.random() * (maxDate.getTime() - minDate.getTime()));
 
-  const date = new Date(randomTime);
+const new_year = document.querySelector('.new_year');
+const date_newYear = document.querySelector('.date_newYear');
 
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+function timerNewYear() {
+  const currentDate = new Date();
+  const newYear = new Date(currentDate.getFullYear() + 1, 0, 1, 0, 0);
+
+  const timeNewYear = newYear - currentDate;
+
+  const seconds = Math.floor(timeNewYear / 1000) % 60;
+  const minutes = Math.floor(timeNewYear / 1000 / 60) % 60;
+  const hours = Math.floor(timeNewYear / (1000 * 60 * 60) % 24);
+  const days = Math.floor(timeNewYear / (1000 * 60 * 60 * 24));
+  
+  let months = (newYear.getFullYear() - currentDate.getFullYear()) * 12 + (newYear.getMonth() - currentDate.getMonth());
+  if (newYear.getDate() < currentDate.getDate()) {
+    months--;
+  }
+
+  new_year.innerHTML = `${months} месяцев  ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
 }
-function validAge(birthday) {
-  const nowDate = new Date();
-  const userBirthday = new Date(birthday).getTime();
-  const userAge = Math.floor((nowDate - userBirthday) / (1000 * 60 * 60 * 24 * 365));
-  return userAge >= 14;
-}
-
-const result = randomDate('1990-01-01', '2025-01-01');
-
-console.log(validAge(result));
+timerNewYear();
+setInterval(() => {
+  timerNewYear();
+}, 1000);
