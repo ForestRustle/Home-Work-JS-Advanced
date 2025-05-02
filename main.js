@@ -1,3 +1,4 @@
+
 'use strict';
 function randomDate(min, max) {
   const minDate = new Date(min);
