@@ -1,28 +1,57 @@
 
 'use strict';
 
-const new_year = document.querySelector('.new_year');
-const date_newYear = document.querySelector('.date_newYear');
-
-function timerNewYear() {
-  const currentDate = new Date();
-  const newYear = new Date(currentDate.getFullYear() + 1, 0, 1, 0, 0);
-
-  const timeNewYear = newYear - currentDate;
-
-  const seconds = Math.floor(timeNewYear / 1000) % 60;
-  const minutes = Math.floor(timeNewYear / 1000 / 60) % 60;
-  const hours = Math.floor(timeNewYear / (1000 * 60 * 60) % 24);
-  const days = Math.floor(timeNewYear / (1000 * 60 * 60 * 24));
-  
-  let months = (newYear.getFullYear() - currentDate.getFullYear()) * 12 + (newYear.getMonth() - currentDate.getMonth());
-  if (newYear.getDate() < currentDate.getDate()) {
-    months--;
+class Character {
+  constructor(race, name, language, health) {
+    this.race = race;
+    this.name = name;
+    this.language = language;
+    this.health = health;
   }
 
-  new_year.innerHTML = `${months} месяцев  ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`;
+  #speak() {
+    console.log(`Персонаж ${this.name}, раса ${this.race}, Язык ${this.language}`);
+  }
+
+  speak() {
+    this.#speak();
+  }
 }
-timerNewYear();
-setInterval(() => {
-  timerNewYear();
-}, 1000);
+
+class Orc extends Character {
+  constructor(race, name, language, health, weapon) {
+    super(race, name, language, health);
+    this.weapon = weapon;
+  }
+  strike(enemy) {
+    enemy.health -= this.weapon;
+    console.log(`Персонаж ${this.name} нанес удар по ${enemy.name} на ${this.weapon} урона`);
+  }
+  getSpeak() {
+    console.log(`Персонаж ${this.name} говорит на языке ${this.language}`);
+  }
+}
+
+class Elf extends Character {
+  constructor(race, name, language, health, spell) {
+    super(race, name, language, health);
+    this.spell = spell;
+  }
+  
+
+  createSpell() {
+    console.log(`Персонаж ${this.name} сотворил заклинание ${this.spell}`);
+  }
+  getSpeak() {
+    console.log(`Персонаж ${this.name} говорит на языке ${this.language}`);
+  }
+}
+const character = new Character('Человек', 'Рохирим', 'Вестрон', 100);
+const orc = new Orc('Орк', 'Азог', 'Чёрное Наречие', 100, 20);
+const elf = new Elf('Эльф', 'Элладан', 'Сииндарин', 100, 'Гоетия');
+
+orc.speak();
+orc.strike(character);
+elf.speak();
+elf.createSpell(character);
+
