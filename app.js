@@ -1,45 +1,32 @@
 'use strict';
 
-const Character = function (race, name, language) {
-  this.race = race;
-  this.name = name;
-  this.language = language;
-};
+function safeFetch(url, errMessage) {
+  return fetch(url)
+    .then(responce => {
+      if (!responce.ok) {
+         throw new Error(`${errMessage} ${responce.status}`);
+      }
+      return responce;
+  })
+}
 
-Character.prototype.speak = function () {
-  console.log(`Персонаж ${this.name}, Язык ${this.language}`);
-};
+safeFetch('https://pokeapi.co/api/v2/pokemon/ditto', 'Sorry, we can`t get a description')
+  .then((responce) => responce.json())
+  .then((abilities) => {
+    const allAbilities = abilities.abilities[0].ability.url;
+    console.log(allAbilities);
+    return fetch(allAbilities);
+  })
 
-const Ork = function (race, name, language, weapon) {
-  Character.call(this, race, name, language);
-  this.weapon = weapon;
-};
-
-const Elf = function (race, name, language, spell) {
-  Character.call(this, race, name, language);
-  this.spell = spell;
-};
-
-//Для прототипа эльфа присвоил создаваемый прототип перса
-Elf.prototype = Object.create(Character.prototype);
-Elf.prototype.constructor = Elf;
-
-Elf.prototype.createSpell = function () {
-  console.log(`Персонаж ${this.name} расы ${this.race} применил заклинание ${this.spell}`);
-};
-
-//Тоже самое для орка
-Ork.prototype = Object.create(Character.prototype);
-Ork.prototype.constructor = Ork;
-
-Ork.prototype.strike = function () {
-  console.log(`Персонаж ${this.name} расы ${this.race} нанес удар оружием ${this.weapon}`);
-};
-
-const orc = new Ork('Орк', 'Азог', 'Чёрное Наречие', 'ятаган');
-const elf = new Elf('Эльф', 'леди Галадриэль', 'синдарин', 'осанвэ');
-
-orc.speak();
-orc.strike();
-elf.speak()
-elf.createSpell();
+  .then((data) => data.json())
+  .then((lang) => {
+    const res = lang.effect_entries.find((el) => el.language.name === "en");
+    const viewMessage = document.querySelector('.message');
+    viewMessage.innerHTML = res.effect
+    console.log(res.effect);
+  })
+  .catch((err) => {
+    const viewErrors = document.querySelector('.errors')
+    viewErrors.innerHTML = err.message
+    console.log(err);
+  });
