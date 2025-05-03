@@ -1,6 +1,5 @@
 'use strict';
 
-//Для отлова ошибок
 function safeFetch(url, errMessage) {
   return fetch(url)
     .then(responce => {
@@ -28,6 +27,6 @@ safeFetch('https://pokeapi.co/api/v2/pokemon/ditto', 'Sorry, we can`t get a desc
   })
   .catch((err) => {
     const viewErrors = document.querySelector('.errors')
-    viewMessage.innerHTML = err.message
+    viewErrors.innerHTML = err.message
     console.log(err);
   });
