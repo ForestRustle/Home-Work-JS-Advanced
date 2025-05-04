@@ -2,46 +2,52 @@
 'use strict';
 
 class Billing {
-  //Для примера расчета
-  #amount = 1;
+  constructor(amount) {
+    this.amount = amount;
+  }
   calculateTotal() {
-    return this.#amount;
+    return this.amount;
   }
 }
 
 class FixedBilling extends Billing {
   calculateTotal() {
-    return super.calculateTotal();
+    return this.amount;
   }
 }
 
 class HourBilling extends Billing {
-  constructor(hours) {
-    super();
+  constructor(amount, hours) {
+    super(amount);
     this.hours = hours;
   }
   calculateTotal() {
-    return super.calculateTotal() * this.hours;
+    return this.amount * this.hours;
   }
 }
 
 class ItemBilling extends Billing {
-  constructor(items) {
-    super();
+  constructor(amount, items) {
+    super(amount);
+    if (!Array.isArray(items)) {
+      console.log('Переданный аргумент должен быть массивом');
+      return;
+    }
     this.items = items;
   }
   calculateTotal() {
-    return super.calculateTotal() * this.items.length;
+    return this.amount * this.items.length;
   }
 }
 
-const fix = new FixedBilling();
+const fix = new FixedBilling(1);
 console.log(fix.calculateTotal());
 
-const hour = new HourBilling(4);
+const hour = new HourBilling(1, 4);
 console.log(hour.calculateTotal());
 
-const itemBilling = new ItemBilling('Purple');
-const itemBilling2 = new ItemBilling([1, 2, 3, 4, 5, 6]);
+const itemBilling = new ItemBilling(1, [1, 2, 3]);
 console.log(itemBilling.calculateTotal());
+
+const itemBilling2 = new ItemBilling(1, 'Purple');
 console.log(itemBilling2.calculateTotal());
