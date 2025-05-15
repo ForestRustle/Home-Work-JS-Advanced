@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000;
+
+}
+
+.button-wrapper {
+  margin: 0 auto;
+  min-height: 30dvh;
+  max-width: 70dvw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.scores {
+  padding: 50px;
+  border: 1px solid white;
+  max-width: 200px;
+  margin: 150px auto 0;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+}
+
+.button {
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #cca05c, #975d33, #5d2013);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
