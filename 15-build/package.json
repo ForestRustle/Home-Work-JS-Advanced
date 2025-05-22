@@ -1,0 +1,19 @@
+{
+  "name": "15-build",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup scripts/main.js --file bundle.js --format iife",
+    "server": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "rollup": "^4.41.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
+}
