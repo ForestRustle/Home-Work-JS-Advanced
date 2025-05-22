@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-body{
+body {
   background-color: #426b7f;
   display: flex;
   justify-content: center;
@@ -16,9 +16,22 @@ body{
   gap: 20px;
 }
 
-.button-text {
+.message {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.user-message {
+  padding: 20px;
+  background: #8ebdd3;
+  border-radius: 8px;
+}
+
+.button {
   padding: 10px 15px;
   border-radius: 8px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
 }

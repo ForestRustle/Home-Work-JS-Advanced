@@ -3,12 +3,15 @@
 import { Task } from './modules/task.js';
 import { User } from './modules/user.js';
 
+const pagesElements = {
+  textButton: document.querySelector('.button-text'),
+  input: document.querySelector('.message'),
+  userMessage: document.querySelector('.user-message'),
+  clearMessage: document.querySelector('.clear-text')
+};
 
-const button = document.querySelector('.button-text');
-const input = document.querySelector('.message');
-
-button.addEventListener('click', () => {
-  const message = input.value;
+pagesElements.textButton.addEventListener('click', () => {
+  const message = pagesElements.input.value;
   if (message.trim() === '') {
     console.log('Сообщение пустой');
     return;
@@ -17,6 +20,10 @@ button.addEventListener('click', () => {
   const user = new User(task);
 
   user.do();
+  pagesElements.userMessage.innerHTML = message;
+  pagesElements.input.value = "";
+});
 
-  input.value = ""
+pagesElements.clearMessage.addEventListener('click', () => {
+  pagesElements.userMessage.innerHTML = "";
 });

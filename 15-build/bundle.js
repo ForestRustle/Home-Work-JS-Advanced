@@ -19,11 +19,15 @@
     }
   }
 
-  const button = document.querySelector('.button-text');
-  const input = document.querySelector('.message');
+  const pagesElements = {
+    textButton: document.querySelector('.button-text'),
+    input: document.querySelector('.message'),
+    userMessage: document.querySelector('.user-message'),
+    clearMessage: document.querySelector('.clear-text')
+  };
 
-  button.addEventListener('click', () => {
-    const message = input.value;
+  pagesElements.textButton.addEventListener('click', () => {
+    const message = pagesElements.input.value;
     if (message.trim() === '') {
       console.log('Сообщение пустой');
       return;
@@ -32,8 +36,12 @@
     const user = new User(task);
 
     user.do();
+    pagesElements.userMessage.innerHTML = message;
+    pagesElements.input.value = "";
+  });
 
-    input.value = "";
+  pagesElements.clearMessage.addEventListener('click', () => {
+    pagesElements.userMessage.innerHTML = "";
   });
 
 })();
